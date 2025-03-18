@@ -61,3 +61,53 @@ Meeting5:
   Discussion: 
     1. Overall overview for the Deliverable2 Report.
 
+
+Meeting Minutes for Deliverable 3
+Meeting 1: Initial Planning and Feedback Discussion
+Date: 02-29-2025
+Attendees: All team members
+Agenda:
+1.	Reviewed and talked about Squad 8’s input.
+2.	Determined important areas for development considering the comments.
+3.	For Deliverable 3 a plan was created, and tasks were assigned.
+Action Items:
+•	In the following stage of development take into account the recommended enhancements.
+•	Make sure the project scope incorporates all of the feedback.
+________________________________________
+Meeting 2: Requirements and System Design
+Date: 03-05-2025
+Attendees: All team members
+Agenda:
+1.	Outlined specifications for the project's initial phase.
+2.	Class sequence and use case diagrams are among the UML diagrams that were discussed and finalized.
+3.	Mapped system components to development tasks.
+Action Items:
+•	Complete documentation of system requirements.
+•	Ensure UML diagrams are aligned with system architecture.
+________________________________________
+Meeting 3: Database Design and Backend Development
+Date: 03-10-2025
+Attendees: All team members
+Agenda:
+1.	Finalized the database schema for the project.
+2.	Created tables in the Django-based database and ensured relationships are correctly mapped.
+3.	Developed initial API endpoints for system functionalities.
+Action Items:
+•	Validate database models and perform initial testing.
+•	Refine API endpoints based on system requirements.
+________________________________________
+Meeting 4: Test Cases and Report Preparation
+Date: 03-15-2025
+Attendees: All team members
+Agenda:
+1.	Developed test cases to validate different system functionalities.
+2.	Assigned test execution and bug tracking responsibilities.
+3.	Started drafting the Deliverable 3 report, ensuring alignment with project goals.
+Action Items:
+•	Complete execution of test cases and document results.
+•	Finalize and proofread the report before submission.
+________________________________________
+Conclusion
+All meetings were attended by all team members, ensuring active participation and collaboration. Each phase of Deliverable 3 was discussed in detail, with clear action items assigned for progress tracking. The team is aligned on the final submission and is working towards completing all pending tasks efficiently.
+
+
