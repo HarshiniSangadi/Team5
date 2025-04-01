@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.conf import settings
+from django.utils import timezone
 # Create your models here.
 from .choices import DOCTOR_STATUS
 
@@ -51,3 +52,23 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.user.user.username
+    
+    
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled'),
+        ('rescheduled', 'Rescheduled'),
+    ]
+    
+    patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE, related_name='appointments')
+    scheduled_time = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Appointment on {self.scheduled_time} - {self.status}"    
