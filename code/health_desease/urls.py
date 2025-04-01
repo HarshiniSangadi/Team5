@@ -1,64 +1,74 @@
-"""health_desease URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path, include
+from django.db import models
+from django.contrib.auth.models import User
 from django.conf import settings
-from django.conf.urls.static import static
-from health.views import *
-# from .api import router
-from .apirep import routerep
+from django.utils import timezone
+# Create your models here.
+from .choices import DOCTOR_STATUS
 
-urlpatterns = [
-    # path('api/sensoviz/', include(router.urls)),
-    path('api/v1/', include(routerep.urls)),
-    path('admin/', admin.site.urls),
-    path('', Home, name="home"),
-    # path('patient_home', User_Home,name="patient_home"),
-    path('doctor_home', Doctor_Home,name="doctor_home"),
-    path('admin_home', Admin_Home,name="admin_home"),
-    path('about', About,name="about"),
-    path('contact', Contact,name="contact"),
-    path('gallery', Gallery,name="gallery"),
-    # path('login', Login_User,name="login"),
-    path('login_admin', Login_admin,name="login_admin"),
-    path('signup', Signup_User,name="signup"),
-    path('logout', Logout,name="logout"),
-    path('change_password', Change_Password,name="change_password"),
-    # path('prdict_heart_disease', prdict_heart_disease,name="prdict_heart_disease"),
-    path('add_heartdetail', add_heartdetail,name="add_heartdetail"),
-    path('view_search_pat', view_search_pat,name="view_search_pat"),
+class Patient(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    contact = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=100, null=True)
+    dob = models.DateField(null=True)
+    image = models.FileField(null=True)
+
+    def __str__(self):
+        return self.user.username
+
+class Doctor(models.Model):
+    status = models.IntegerField(DOCTOR_STATUS, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    contact = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=100, null=True)
+    category = models.CharField(max_length=100, null=True)
+    doj = models.DateField(null=True)
+    dob = models.DateField(null=True)
+    image = models.FileField(null=True)
+
+    def __str__(self):
+        return self.user.username
+
+class Admin_Helath_CSV(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    csv_file = models.FileField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Search_Data(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
+    prediction_accuracy = models.CharField(max_length=100,null=True,blank=True)
+    result = models.CharField(max_length=100,null=True,blank=True)
+    values_list = models.CharField(max_length=100,null=True,blank=True)
+    created = models.DateTimeField(auto_now=True,null=True)
+
+    def __str__(self):
+        return self.patient.user.username
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    messages = models.TextField(null=True)
+    date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.user.user.username
     
-    path('login/', Login_User, name="login"),
-path('view_patient/', View_Patient, name="view_patient"),
-path('patient_home/', User_Home, name="patient_home"),
-
-    path('view_doctor', View_Doctor,name="view_doctor"),
-    path('add_doctor', add_doctor,name="add_doctor"),
-    path('change_doctor/<int:pid>/', add_doctor,name="change_doctor"),
-    # path('view_patient', View_Patient,name="view_patient"),
-    path('view_feedback', View_Feedback,name="view_feedback"),
-    path('edit_profile', Edit_My_deatail,name="edit_profile"),
-    path('profile_doctor', View_My_Detail,name="profile_doctor"),
-    path('sent_feedback', sent_feedback,name="sent_feedback"),
-
-    path('delete_searched/<int:pid>', delete_searched, name="delete_searched"),
-    path('delete_doctor<int:pid>', delete_doctor, name="delete_doctor"),
-    path('assign_status<int:pid>', assign_status, name="assign_status"),
-    path('delete_patient<int:pid>', delete_patient, name="delete_patient"),
-    path('delete_feedback<int:pid>', delete_feedback, name="delete_feedback"),
-    path('predict_desease/<str:pred>/<str:accuracy>/', predict_desease, name="predict_desease"),
-
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled'),
+        ('rescheduled', 'Rescheduled'),
+    ]
+    
+    patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE, related_name='appointments')
+    scheduled_time = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Appointment on {self.scheduled_time} - {self.status}"    
