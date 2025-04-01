@@ -1,0 +1,22 @@
+<!-- appointments/templates/appointments/doctor_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+    <h1>Pending Appointments</h1>
+    <ul>
+        {% for appointment in appointments %}
+            <li>
+                Appointment with {{ appointment.patient.username }} on {{ appointment.scheduled_time }} -
+                <a href="{% url 'appointments:update_status' appointment.id 'accepted' %}">Accept</a> |
+                <a href="{% url 'appointments:update_status' appointment.id 'rejected' %}">Reject</a>
+            </li>
+        {% empty %}
+            <li>No pending appointments.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
