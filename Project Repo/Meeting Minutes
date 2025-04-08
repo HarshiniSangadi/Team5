@@ -107,7 +107,97 @@ Action Items:
 •	Complete execution of test cases and document results.
 •	Finalize and proofread the report before submission.
 ________________________________________
+Deliverable 4: Appointment Management System
+
+Meeting 1: Feature Planning & Task Distribution 
+Date: 03/18/2025
+Participants:All Team Members  
+Discussion Points: 
+1. Reviewed the feedback from Deliverable 3 and highlighted the key requirements for the fourth deliverable.  
+2. Finalized feature list:  
+   Patient Interface: Book, reschedule, cancel, and view past appointments.  
+   Doctor Interface: Access all scheduled appointments and approve or reject them.  
+   Admin Panel: Monitor all appointments and apply filters based on status (accepted/rejected).  
+3. Outlined user interaction flows and identified necessary backend changes including APIs and database updates.  
+4. Task assignment:  
+   Backend team: Implement appointment-related CRUD functionality and track status updates.  
+   Frontend team: Build UI components for Patient, Doctor, and Admin interfaces.  
+   QA team: Perform tests on user permissions and edge case scenarios.  
+
+To-Do List: 
+- Write user stories for each major feature.  
+- Revise the project schedule with specific development and testing deadlines.  
+
+Meeting 2: Backend Architecture & Data Model Design
+Date: 03/20/2025
+Participants:All team members 
+
+Discussion Points:  
+1. Finalized updates to the database design:  
+   - Introduced a new `Appointment` table with the following fields: `patient_id`, `doctor_id`, `date_time`, `status` (pending, approved, rejected), and `notes`.  
+   - Established appropriate links between `Patient`, `Doctor`, and `Appointment` tables.  
+2. Developed RESTful API routes:  
+   - `POST /api/appointments/create` – for patients to book an appointment.  
+   - `PUT /api/appointments/reschedule/{id}` – to allow rescheduling.  
+   - `DELETE /api/appointments/{id}` – cancel existing appointments.  
+   - `GET /api/appointments/history` – view patient’s appointment history.  
+   - `GET /api/doctor/appointments` – for doctors to view scheduled appointments.  
+   - `PUT /api/doctor/appointments/{id}/status` – update appointment status.  
+   - Admin APIs to filter appointments based on status.  
+3. Security Considerations: Integrated Role-Based Access Control (RBAC) for different user roles.  
+
+To-Do List:
+- Complete database migration scripts and test data validation logic.  
+- Begin connecting backend endpoints to corresponding frontend elements.  
+
+---
+
+Meeting 3: UI Development & System Integration
+Date: 03/26/2025
+Participants: All team members 
+Discussion Points: 
+1. Presented front-end designs:  
+   -Patient Panel: Forms for booking/rescheduling and appointment history.  
+   -Doctor Panel: Interface showing pending requests with decision buttons.  
+   -Admin Panel: Dashboard featuring filters by appointment status and data export.  
+2. Completed initial API integration:  
+   - Confirmed that appointment creation and live status updates are functioning.  
+   - Resolved issues with permission enforcement (e.g., preventing doctors from editing appointments).  
+3. Identified and discussed corner cases:  
+   - Preventing double-booking or overlapping appointments.  
+   - Notifying users when their appointment status changes.  
+
+To-Do List: 
+- Improve mobile responsiveness of all interfaces.  
+- Add comprehensive error messages for failed API calls (e.g., rescheduling conflicts).  
+
+---
+
+Meeting 4: QA Testing & Documentation Completion  
+Date:04/05/2025.
+Participants:All team members  
+Discussion Points:
+1. Validated key user workflows:  
+   - Patient flow: Book → Reschedule → Cancel → View history.  
+   - Doctor flow: Approve appointment → Admin dashboard reflects update.  
+   - Admin flow: Filter and view rejected appointments.  
+2. Documented results and fixed major bugs:  
+   - Adjusted timezone inconsistencies affecting appointment times.  
+   - Resolved admin access control issue.  
+3. Assembled final report for Deliverable 4:  
+   - Included interface screenshots, endpoint documentation, and testing results.  
+   - Revised the system architecture to reflect updated appointment processes.  
+
+To-Do List: 
+- Finalize and rehearse demo script showcasing core functionalities.  
+- Submit Deliverable 4 before the submission deadline.  
+
+---
+
+Summary: 
+The team collaborated effectively to plan, build, and test the Appointment Management System. All implemented features align with the intended scope, and comprehensive testing has ensured stable functionality across different user roles. The project is ready for demonstration and submission.
+
 Conclusion
 All meetings were attended by all team members, ensuring active participation and collaboration. Each phase of Deliverable 3 was discussed in detail, with clear action items assigned for progress tracking. The team is aligned on the final submission and is working towards completing all pending tasks efficiently.
-
+__________________________________________________________________________________________________________
 
