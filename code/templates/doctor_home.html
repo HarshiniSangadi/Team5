@@ -1,0 +1,119 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    .glow {
+      font-size: 80px;
+      color: #fff;
+      text-align: center;
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+      }
+      to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6;
+      }
+    }
+
+    hr.rounded {
+      border-top: 8px solid lightblue;
+      border-radius: 5px;
+    }
+
+    .prjdiv:hover {
+      transform: translateY(-10px);
+    }
+
+    .container1 {
+      width: 100%;
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    h2, h4 {
+      padding: 10px;
+    }
+
+    .appointment-card {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    .appointment-card a {
+      margin-right: 10px;
+    }
+</style>
+
+<div class="container-fluid" style="margin-top:8%;width:100%">
+    <div class="container-fluid">
+        <h1 align="center" style="font-weight:bold;font-family:roman">DOCTORS DASHBOARD</h1>
+        <hr/><br>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{% url 'view_patient' %}">
+                <div style="padding:10px;margin:1%;background:#61bbb9;color:white;">
+                    <h3 style="font-weight:bold;font-size:35px">{{ pat }}</h3>
+                    <h4 style="font-weight:bold;">Total Patients</h4>
+                    <p style="color:black">All access are given.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{% url 'view_feedback' %}">
+                <div style="padding:10px;margin:1%;background:#538482;color:white;">
+                    <h3 style="font-weight:bold;font-size:35px">{{ feed }}</h3>
+                    <h4 style="font-weight:bold;">Total Feedback</h4>
+                    <p style="color:black">All access are given.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <hr>
+    <center>
+        <h1>Welcome Doctor</h1>
+    </center>
+    <br><br>
+
+
+    <div style="padding:10px;margin:1%;background:#538482;color:white;">
+    <h3 style="font-weight:bold;">Appointments</h3>
+    
+    <div class="container-fluid">
+      
+        {% if appointments %}
+            {% for appt in appointments %}
+                <div class="appointment-card">
+                    <p>
+                        <strong>{{ appt.patient.username }}</strong> <br>
+                        Scheduled: {{ appt.scheduled_time|date:"M d, Y H:i" }}<br>
+                        Status: <em>{{ appt.status|capfirst }}</em>
+                    </p>
+                    {% if appt.status == 'pending' %}
+                        <a href="{% url 'appointments:update_status' appt.id 'accepted' %}" class="btn btn-success btn-sm">Accept</a>
+                        <a href="{% url 'appointments:update_status' appt.id 'rejected' %}" class="btn btn-danger btn-sm">Reject</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No appointments to show.</p>
+        {% endif %}
+              </div>
+    </div>
+</div>
+
+{% endblock %} 
+
+

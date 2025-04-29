@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Doctor Dashboard</h1>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>Patient Name</th>
+        <th>Scheduled Time</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appointment in appointments %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ appointment.patient }}</td>  {# or use patient.user.username / first_name last_name #}
+        <td>{{ appointment.scheduled_time }}</td>
+        <td>{{ appointment.status }}</td>
+        <td>{{ appointment.created_at }}</td>
+        <td>
+          {% if appointment.status == 'Pending' %}
+            <a href="{% url 'accept_appointment' appointment.id %}" class="btn btn-success btn-sm">Accept</a>
+            <a href="{% url 'reject_appointment' appointment.id %}" class="btn btn-warning btn-sm">Reject</a>
+          {% endif %}
+          <a href="{% url 'delete_appointment' appointment.id %}" class="btn btn-danger btn-sm"
+             onclick="return confirm('Are you sure you want to delete this appointment?');">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">No appointments assigned.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

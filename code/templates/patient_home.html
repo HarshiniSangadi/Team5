@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container-fluid" style="margin-top:100px;margin-bottom:2%;width:100%">
+    <h2 align="center" style="font-weight:bold;font-family:roman">PATIENT DASHBORAD</h2><hr/>
+    <br>
+    <center>
+    <h1>Welcome to the Patient Dashboard. </h1>
+    <div class="container-fluid" style="margin-top:8%;width:100%">
+        <div class="container-fluid">
+        </div>
+    
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url 'appointments:past_appointments' %}" >
+                    <div style="padding:10px;margin:1%;background:#61bbb9;color:white;">
+                        {% comment %} <h3 style="font-weight:bold;font-size:35px">{{ pat }}</h3> {% endcomment %}
+                        <h4 style="font-weight:bold;">Your Past Appointments</h4>
+                        <p style="color:black">View  all your appointments</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+    </center>
+</div>
+
+
+{% endblock %}
